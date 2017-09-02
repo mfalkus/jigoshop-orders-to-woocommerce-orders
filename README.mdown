@@ -1,0 +1,29 @@
+# Convert JigoShop orders to WooCommerce Orders
+
+First of all, this plugin is really intended for devs to use. If
+you're not confident with the layout of WordPress content in your
+database then this plugin isn't for you. If you are, read on.
+
+## What's the deal?
+
+I needed to convert a Jigoshop site to WooCommerce. I used the
+free (though discontinued) plugin by WooThemes for the shop
+migration. This worked well, but didn't actually do anything
+with the pre-existing orders, it only converted products
+and appropriate meta data.
+
+I had a look at some of the other free plugins I could find,
+but they didn't work for various reasons. By this point, I'd
+made a sample order and compared the data structures, figuring
+it would be easiest to just write a conversion plugin myself.
+
+As the plugin is only intended for a one-off run by myself it's
+pretty quick and dirty.
+
+## Recommend Steps
+
+* Put your site into maintain once mode
+* Enable the plugin
+* Access the public site to trigger the main conversion to run
+* Disable the plugin
+* Take your site out of maintenance mode
