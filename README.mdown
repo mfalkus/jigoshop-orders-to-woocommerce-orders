@@ -19,8 +19,9 @@ quick conversion script might be the answer.
 As the plugin is only intended for a one-off run by myself it's pretty (very?)
 quick-and-dirty. YMMV.
 
-## Recommend Steps
+## Running The Plugin
 
+* Definitely take a backup of your database before starting. If the plugin goes haywire and drops your database you'll need it.
 * Put your site into maintain once mode. I used [WP Maintenance Mode](https://en-gb.wordpress.org/plugins/wp-maintenance-mode/) which worked fine.
 * Install and enable the plugin.
 * Access the public facing part of site to trigger the main conversion. It
