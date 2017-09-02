@@ -1,15 +1,14 @@
 <?php
 /*
-Plugin Name: JigoShop Orders to WooCommerce Orders
+Plugin Name: Jigoshop Orders to WooCommerce Orders
 Plugin URI: https://falkus.co
-Description: Convert JigoShop orders to WooCommerce orders.
+Description: Convert Jigoshop orders to WooCommerce orders.
 Author: Martin Falkus
 Author URI: https://falkus.co
 Version: 0.1
 */
 
-include 'includes/helper-functions.php'
-
+include 'includes/helper-functions.php';
 
 function jigo_woo_convert_orders() {
 
