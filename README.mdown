@@ -48,12 +48,7 @@ Other ways beyond that are left as an exercise for the reader.
 > I've got a crazy high number of orders and the page timed out. Does the
 > plugin pick up from where it left off?
 
-No. I had to run this on slightly less than 10,000 orders, and all queries ran
-in a minute or two. I didn't hit any timeout issue, but I can see that being a
-larger shop issue.
-
-If you do run into this, perhaps use `add_option` to keep track of the last
-order ID converted, then check for this at the start of conversion function.
+Yes.
 
 > Does the plugin handle WordPress database table prefixes?
 

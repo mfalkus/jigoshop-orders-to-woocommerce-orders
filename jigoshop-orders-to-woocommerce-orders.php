@@ -19,15 +19,24 @@ function jigo_woo_convert_orders() {
     }
 
     global $wpdb;
+    $jigoshop_ids = $wpdb->get_results("
+        SELECT post_id
+        FROM wp_postmeta
+        WHERE meta_key = 'order_data'
+        ORDER BY post_id ASC
+    ");
 
-    $jigoshop_ids = $wpdb->get_results(
-        "SELECT post_id FROM wp_postmeta WHERE meta_key = 'order_data'"
-    );
+    // Might be a part-complete run
+    $starting_id = get_option('jigo_woo_last_id', -1);
 
     $count = 0;
     echo "<ul>";
     foreach ($jigoshop_ids as $post_id_obj) {
         $post_id = $post_id_obj->post_id;
+
+        if ($starting_id >= $post_id) {
+            echo("<li>Skipping already done $post_id</li>");
+        }
 
         $results = grab_jigoshop( $post_id );
         foreach ($results as $meta_entry) {
@@ -123,6 +132,7 @@ function jigo_woo_convert_orders() {
         // Update post_status to wc-completed here
         update_post_status($post_id, 'wc-completed');
 
+        update_option('jigo_woo_last_id', $post_id);
         echo( "<li>Updated order $post_id</li>" );
 
         $count++;
