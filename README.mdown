@@ -1,4 +1,4 @@
-# Convert JigoShop orders to WooCommerce Orders
+# Convert Jigoshop Orders to WooCommerce Orders
 
 First of all, this plugin is really intended for devs to use. If
 you're not confident with the layout of WordPress content in your
@@ -6,24 +6,62 @@ database then this plugin isn't for you. If you are, read on.
 
 ## What's the deal?
 
-I needed to convert a Jigoshop site to WooCommerce. I used the
-free (though discontinued) plugin by WooThemes for the shop
-migration. This worked well, but didn't actually do anything
-with the pre-existing orders, it only converted products
-and appropriate meta data.
+I needed to convert a Jigoshop site to use WooCommerce. I installed and ran the
+free (though discontinued) plugin by WooThemes for the shop migration. This
+worked well, but didn't actually do anything with the pre-existing orders, it
+only converted products and appropriate meta data.
 
-I had a look at some of the other free plugins I could find,
-but they didn't work for various reasons. By this point, I'd
-made a sample order and compared the data structures, figuring
-it would be easiest to just write a conversion plugin myself.
+I had a look at some of the other free plugins I could find to do the job, but
+they didn't work for various reasons. By this point, I'd made a sample order
+via WC and compared the data structure to that of an old order. It seemed a
+quick conversion script might be the answer.
 
-As the plugin is only intended for a one-off run by myself it's
-pretty quick and dirty.
+As the plugin is only intended for a one-off run by myself it's pretty (very?)
+quick-and-dirty. YMMV.
 
 ## Recommend Steps
 
 * Put your site into maintain once mode
-* Enable the plugin
-* Access the public site to trigger the main conversion to run
-* Disable the plugin
+* Enable the plugin.
+* Access the public facing part of site to trigger the main conversion. It
+  hooks in on `wp_head` (yeah, I know), and will output some logging to the
+  browser (hence the maintenance mode).
+* Disable the plugin.
 * Take your site out of maintenance mode
+
+## Caveats and Questions
+
+> All the order statuses are set to completed. Why?
+
+This is hard coded. I knew all the orders I needed to convert had been
+fulfilled and it was easiest for me just to set the status explicitly.
+A grep of the code for `wc-completed` will allow you to find the relevant
+line that needs tweaking if this is an issue.
+
+> I want to run this behind the scenes?
+
+You can't as the plugin stands, but it wouldn't be a major change to
+unhook from `wp_head` and then run as part of eval-file argument using WP CLI.
+Other ways beyond that are left as an exercise for the reader.
+
+> I've got a crazy high number of orders and the page timed out. Does the
+> plugin pick up from where it left off?
+
+No. I had to run this on slightly less than 10,000 orders, and all queries ran
+in a minute or two. I didn't hit any timeout issue, but I can see that being a
+larger shop issue.
+
+If you do run into this, perhaps use `add_option` to keep track of the last
+order ID converted, then check for this at the start of conversion function.
+
+> Does the plugin handle WordPress database table prefixes?
+
+No. Even better than that, all the table references are hard-coded. When I
+said the plugin was 'quick-and-dirty' I really meant it.
+
+> I have some custom fields that I'd like to map between orders?
+
+I also had some custom fields to map, notably to do with personal message
+and delivery date per order. You can look at those for an idea of what to
+do. I'd recommened running some queries to check the data format of the old
+custom field.
