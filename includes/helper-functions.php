@@ -2,6 +2,13 @@
 /**
  * Helper functions for going from Jigoshop to Woocommerce orders
  */
+define('DEBUG', 0);
+
+function jigo_woo_log($msg) {
+    if (DEBUG) {
+        error_log($msg);
+    }
+}
 
 function grab_jigoshop($order_id) {
     global $wpdb;
@@ -15,7 +22,7 @@ function grab_jigoshop($order_id) {
 }
 
 function insert_meta($post_id, $key, $value) {
-    WP_CLI::log( "Insert meta $post_id $key $value" );
+    jigo_woo_log( "Insert meta $post_id $key $value" );
     global $wpdb;
     $wpdb->insert( 
         'wp_postmeta', 
@@ -33,7 +40,7 @@ function insert_meta($post_id, $key, $value) {
 }
 
 function insert_itemmeta($order_item_id, $key, $value) {
-    WP_CLI::log( "Insert item meta $order_item_id $key $value" );
+    jigo_woo_log( "Insert item meta $order_item_id $key $value" );
     global $wpdb;
     $wpdb->insert( 
         'wp_woocommerce_order_itemmeta', 
@@ -51,7 +58,7 @@ function insert_itemmeta($order_item_id, $key, $value) {
 }
 
 function order_item($post_id, $entry) {
-    WP_CLI::log( "Insert item $post_id " . $entry['name'] );
+    jigo_woo_log( "Insert item $post_id " . $entry['name'] );
     global $wpdb;
     $wpdb->insert( 
         'wp_woocommerce_order_items', 
