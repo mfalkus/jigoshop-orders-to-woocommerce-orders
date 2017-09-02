@@ -7,7 +7,7 @@ database then this plugin isn't for you. If you are, read on.
 ## What's the deal?
 
 I needed to convert a Jigoshop site to use WooCommerce. I installed and ran the
-free (though discontinued) plugin by WooThemes for the shop migration. This
+[free (though discontinued) plugin by WooThemes for the shop migration](https://docs.woocommerce.com/document/jigoshop-to-woocommerce/). This
 worked well, but didn't actually do anything with the pre-existing orders, it
 only converted products and appropriate meta data.
 
@@ -21,13 +21,13 @@ quick-and-dirty. YMMV.
 
 ## Recommend Steps
 
-* Put your site into maintain once mode
-* Enable the plugin.
+* Put your site into maintain once mode. I used [WP Maintenance Mode](https://en-gb.wordpress.org/plugins/wp-maintenance-mode/) which worked fine.
+* Install and enable the plugin.
 * Access the public facing part of site to trigger the main conversion. It
   hooks in on `wp_head` (yeah, I know), and will output some logging to the
   browser (hence the maintenance mode).
-* Disable the plugin.
-* Take your site out of maintenance mode
+* Disable and remove the plugin.
+* Take your site out of maintenance mode.
 
 ## Caveats and Questions
 
